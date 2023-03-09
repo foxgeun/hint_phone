@@ -152,7 +152,7 @@ return Scaffold(
         Expanded(
           child: WebView(
             initialUrl:
-                'https://escape9.channel.io/user-chats/64098240d7bbfeb6e780?mode=direct',
+                'https://escape9.channel.io/lounge',
             javascriptMode: JavascriptMode.unrestricted,
             onWebViewCreated: (WebViewController webViewController) {
               _webViewController = webViewController;
