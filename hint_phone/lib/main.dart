@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:webview_flutter/webview_flutter.dart';
 
 void main() => runApp(MaterialApp(
-  home: MyApp(),
-));
+      home: MyApp(),
+    ));
 
 class MyApp extends StatefulWidget {
   @override
@@ -17,10 +17,9 @@ class _MyAppState extends State<MyApp> {
   String _output = "";
   bool _timerStarted = false;
   int _remainingTime = 3600; // 초 단위
+  bool _startButtonVisible = true; // 시작 버튼 표시 여부// 초 단위
 
-  void _incrementCounter() {
-    // 아무런 작업도 수행하지 않음
-  }
+
 
   void _updateOutput(String key) {
     setState(() {
@@ -87,32 +86,66 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _startTimer() {
-    Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {
-        if (_remainingTime > 0) {
-          _remainingTime--;
-        } else {
-          timer.cancel();
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text("타임오버!"),
-                actions: <Widget>[
-                  ElevatedButton(
-                    child: Text("확인"),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              );
-            },
-          );
-        }
-      });
-    });
+  if (_timerStarted) {
+    return;
   }
+
+  String hintCode = "";
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("힌트코드를 입력하세요."),
+        content: TextField(
+          onChanged: (value) {
+            hintCode = value;
+          },
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text("확인"),
+            onPressed: () {
+              _updateOutput(hintCode);
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+  
+  Timer.periodic(Duration(seconds: 1), (timer) {
+    setState(() {
+      if (_remainingTime > 0) {
+        _remainingTime--;
+      } else {
+        timer.cancel();
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("타임오버!"),
+              actions: <Widget>[
+                ElevatedButton(
+                  child: Text("확인"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        ); // 이 부분 인덱스 확인 후 추가해주세요.
+      }
+    });
+  });
+  setState(() {
+    _timerStarted = true;
+    _startButtonVisible = false; // 시작 버튼 숨기기
+  });
+}
+
 
   void resetTimer() {
     setState(() {
@@ -120,48 +153,87 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  @override
-Widget build(BuildContext context) {
-return Scaffold(
-  appBar: AppBar(
-    title: Text("타이머"),
-  ),
-  body: Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          '$_remainingTime',
-          style: Theme.of(context).textTheme.headline1,
-        ),
-        SizedBox(height: 30),
-        ElevatedButton(
-          child: Text("시작"),
-          onPressed: () {
-            _startTimer();
-          },
-        ),
-        SizedBox(height: 30),
-        ElevatedButton(
-          child: Text("초기화"),
-          onPressed: () {
-            resetTimer();
-          },
-        ),
-        SizedBox(height: 30),
-        Expanded(
-          child: WebView(
-            initialUrl:
-                'https://escape9.channel.io/lounge',
-            javascriptMode: JavascriptMode.unrestricted,
-            onWebViewCreated: (WebViewController webViewController) {
-              _webViewController = webViewController;
+  void _showInputDialog() {
+    if (_timerStarted) {
+      return;
+    }
+
+    String hintCode = "";
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("힌트코드를 입력하세요."),
+          content: TextField(
+            onChanged: (value) {
+              hintCode = value;
             },
           ),
+          actions: <Widget>[
+            TextButton(
+              child: Text("확인"),
+              onPressed: () {
+                _updateOutput(hintCode);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+    setState(() {
+      _timerStarted = true;
+    });
+  }
+void _incrementCounter() {
+    _counter++;
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("타이머"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              '$_remainingTime',
+              style: Theme.of(context).textTheme.headline1,
+            ),
+            SizedBox(height: 30),
+            Visibility(
+              visible: _startButtonVisible,
+              child: ElevatedButton(
+                child: Text("시작"),
+                onPressed: () {
+                  _startTimer();
+                  _showInputDialog(); // 입력창 띄우기
+                },
+              ),
+            ),
+            SizedBox(height: 30),
+            ElevatedButton(
+              child: Text("초기화"),
+              onPressed: () {
+                resetTimer();
+              },
+            ),
+            SizedBox(height: 30),
+            Expanded(
+              child: WebView(
+                initialUrl: 'https://escape9.channel.io/lounge',
+                javascriptMode: JavascriptMode.unrestricted,
+                onWebViewCreated: (WebViewController webViewController) {
+                  _webViewController = webViewController;
+                },
+              ),
+            ),
+          ],
         ),
-      ],
-    ),
-  ),
-);
-}
+      ),
+    );
+  }
 }
