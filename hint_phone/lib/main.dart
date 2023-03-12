@@ -186,6 +186,7 @@ title: Text("채팅"),
 ),
 body: WebView(
 initialUrl: 'https://escape9.channel.io/lounge',
+
 javascriptMode: JavascriptMode.unrestricted,
 ),
 );
