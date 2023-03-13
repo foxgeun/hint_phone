@@ -19,7 +19,11 @@ class _MyAppState extends State<MyApp> {
   int _remainingTime = 3600; // 초 단위
   bool _startButtonVisible = true; // 시작 버튼 표시 여부
   bool _inputVisible = false;
-
+String _formatTime(int seconds) {
+    int minutes = seconds ~/ 60;
+    int remainingSeconds = seconds % 60;
+    return '${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
+  }
 void _checkHint(String value) {
     if (value.contains("1a15")) {
       showDialog(
@@ -127,29 +131,22 @@ void _checkHint(String value) {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              '$_remainingTime',
+              _formatTime(_remainingTime),
               style: Theme.of(context).textTheme.headline1!,
             ),
             SizedBox(height: 30),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (_startButtonVisible)
-                  ElevatedButton(
-                    child: Text("시작"),
-                    onPressed: () {
-                      _startTimer();
-                    },
-                  ),
-                SizedBox(width: 30),
-                ElevatedButton(
-                  child: Text("초기화"),
-                  onPressed: () {
-                    resetTimer();
-                  },
-                ),
-              ],
-            ),
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    if (_startButtonVisible)
+      ElevatedButton(
+        child: Text("시작"),
+        onPressed: () {
+          _startTimer();
+        },
+      ),
+  ],
+),
             SizedBox(height: 30),
             if (_inputVisible)
               TextField(
@@ -163,9 +160,9 @@ void _checkHint(String value) {
                   _checkHint(value);
                 },
               ),
-            SizedBox(height: 30),
-            ElevatedButton(
-              child: Text("채팅"),
+             SizedBox(height: 30),
+            FloatingActionButton(
+              child: Icon(Icons.chat),
               onPressed: () {
                 _navigateToChat();
               },
