@@ -66,6 +66,170 @@ void _checkHint(String value) {
           );
         },
       );
+    }if (value.contains("1h13")) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("힌트"),
+            content: Text("오늘은 10월 19일 Friday 입니다. Monday = 13 / Tuesday = 20 / Wednesday = 23 .....Friday = “6”"),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text("정답 확인"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("힌트"),
+                        content: Text("1906"),
+                        actions: <Widget>[
+                          ElevatedButton(
+                            child: Text("확인"),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+              ElevatedButton(
+                child: Text("확인"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }if (value.contains("1r25")) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("힌트"),
+            content: Text("팜플렛에서 설명을 자세히 읽어보신 뒤, 마르가리타 공주의 초상화 옆에 걸려있는 “설명액자”를 바르게 옮겨 걸어주세요!"),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text("정답 확인"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("힌트"),
+                        content: Text("뭐뭐뭐"),
+                        actions: <Widget>[
+                          ElevatedButton(
+                            child: Text("확인"),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+              ElevatedButton(
+                child: Text("확인"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }if (value.contains("1s27")) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("힌트"),
+            content: Text("마르가리타 공주는 머리를 쓰다듬어 주는 것을 좋아한다고 해요. 머리를 ‘천천히’ 쓰다듬어주세요!"),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text("정답 확인"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("힌트"),
+                        content: Text("어떤 그림의 머리를 쓰다듬어주세요"),
+                        actions: <Widget>[
+                          ElevatedButton(
+                            child: Text("확인"),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+              ElevatedButton(
+                child: Text("확인"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }if (value.contains("1j38")) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("힌트"),
+            content: Text("나무블럭을 거꾸로 꽂이 않았는지 확인해주세요. 칼날의 방향은 아래로 향해야 합니다.불빛은 게임진행과 무관한 요소입니다. 팜플렛과 초록색천을 이용해 나무조각과 석상의 방향을 맞게 맞춰주세요."),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text("정답 확인"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("힌트"),
+                        content: Text("마르스/창과방패 - 세네카/책 - 비너스/미의여신 - 아그리파/신전건설 - 브루투스/단검 - 줄리앙/25세"),
+                        actions: <Widget>[
+                          ElevatedButton(
+                            child: Text("확인"),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+              ElevatedButton(
+                child: Text("확인"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 
@@ -124,7 +288,7 @@ void _checkHint(String value) {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("타이머"),
+        title: Text("escape9"),
       ),
       body: Center(
         child: Column(
@@ -147,9 +311,9 @@ void _checkHint(String value) {
       ),
   ],
 ),
-            SizedBox(height: 30),
+            SizedBox(height: 0),
             if (_inputVisible)
-              TextField(
+              TextField(textAlign: TextAlign.center,
                 decoration: InputDecoration(
                   hintText: '여기에 입력해주세요',
                 ),
