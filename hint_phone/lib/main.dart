@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   WebViewController? _webViewController;
-  final int _counter = 0;
+  int _counter = 0;
   String _output = "";
   bool _timerStarted = false;
   int _remainingTime = 3600; // 초 단위
@@ -27,8 +27,15 @@ class _MyAppState extends State<MyApp> {
     return '${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
   }
 
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
   void _checkHint(String value) {
     if (value.contains("1a15")) {
+      _counter++;
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -320,6 +327,7 @@ class _MyAppState extends State<MyApp> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                
                 if (_startButtonVisible)
                   ElevatedButton(
                     onPressed: () {
@@ -332,9 +340,12 @@ class _MyAppState extends State<MyApp> {
                         fixedSize: const Size(150, 40), //버튼크기,너비x높이
                         textStyle: const TextStyle(fontSize: 20)),
                     child: const Text("시작"),
-                  ),
+                  )
+                  ,
+                
               ],
             ),
+
             const SizedBox(
               height: 30,
             ),
@@ -356,6 +367,7 @@ class _MyAppState extends State<MyApp> {
                   _checkHint(value);
                 },
               ),
+
             const SizedBox(height: 30),
             FloatingActionButton(
               backgroundColor: const Color.fromRGBO(255, 215, 0, 1),
